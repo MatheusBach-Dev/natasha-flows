@@ -1,73 +1,38 @@
-# Welcome to your Lovable project
+# 🧘‍♀️ Método LeveMente - Aplicação Web de Captação de Clientes
 
-## Project info
+Este repositório contém o código-fonte do projeto **Método LeveMente**, uma aplicação web desenvolvida para **a minha mãe**, com o objetivo de consolidar sua presença digital como terapeuta e facilitar a captação de novos clientes.
 
-**URL**: https://lovable.dev/projects/6590011d-3942-440c-b248-034b08140adc
+É um projeto pessoal focado em **profissionalismo e leveza**, construído com uma *stack* moderna para garantir alta performance e uma excelente experiência do usuário (UX).
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## ⚙️ Tecnologias Utilizadas (The Stack)
 
-**Use Lovable**
+O projeto é baseado nas seguintes tecnologias de ponta:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6590011d-3942-440c-b248-034b08140adc) and start prompting.
+| Categoria | Tecnologia | Objetivo |
+| :--- | :--- | :--- |
+| **Biblioteca UI** | **React** | Componentização e gestão eficiente do estado da aplicação. |
+| **Linguagem** | **TypeScript** | Adiciona tipagem estática para maior segurança e robustez do código. |
+| **Build Tool** | **Vite** | Ferramenta de *build* e *dev server* de próxima geração, ultra-rápida. |
+| **Estilização** | **Tailwind CSS** | Framework CSS *utility-first* para desenvolvimento rápido e consistente. |
+| **Componentes** | **shadcn-ui** | Coleção de componentes re-utilizáveis e acessíveis, construídos sobre Tailwind. |
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🚀 Começando o Desenvolvimento Local
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Para trabalhar localmente usando seu IDE favorito, siga os passos abaixo:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Step 1: Clone o repositório.
+git clone https://github.com/matheusbachpreis-glitch/metodo-levemente.git
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Step 2: Navegue para o diretório do projeto.
+cd metodo-levemente
 
-# Step 3: Install the necessary dependencies.
+# Step 3: Instale as dependências necessárias.
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Step 4: Inicie o servidor de desenvolvimento com auto-reload e pré-visualização instantânea.
 npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/6590011d-3942-440c-b248-034b08140adc) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

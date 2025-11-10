@@ -4,6 +4,8 @@ Este repositório contém o código-fonte do projeto **Método LeveMente**, uma 
 
 É um projeto pessoal focado em **profissionalismo e leveza**, construído com uma *stack* moderna para garantir alta performance e uma excelente experiência do usuário (UX).
 
+O site é **totalmente responsivo** e **funciona perfeitamente em dispositivos móveis**, permitindo que novos clientes acessem e interajam com a plataforma de forma fluida, rápida e intuitiva, seja no celular, tablet ou computador.
+
 ---
 
 ## ⚙️ Tecnologias Utilizadas (The Stack)

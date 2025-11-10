@@ -26,7 +26,7 @@ Para trabalhar localmente usando seu IDE favorito, siga os passos abaixo:
 
 ```sh
 # Step 1: Clone o repositório.
-git clone https://github.com/matheusbachpreis-glitch/natasha-flows.git
+git clone https://github.com/MatheusBach-Dev/natasha-flows.git
 
 # Step 2: Navegue para o diretório do projeto.
 cd natasha-flows

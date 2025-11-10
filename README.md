@@ -26,13 +26,16 @@ Para trabalhar localmente usando seu IDE favorito, siga os passos abaixo:
 
 ```sh
 # Step 1: Clone o repositório.
-git clone https://github.com/matheusbachpreis-glitch/metodo-levemente.git
+git clone https://github.com/matheusbachpreis-glitch/natasha-flows.git
 
 # Step 2: Navegue para o diretório do projeto.
-cd metodo-levemente
+cd natasha-flows
 
 # Step 3: Instale as dependências necessárias.
 npm i
+
+# Step 4: Inicie o servidor de desenvolvimento com auto-reload e pré-visualização instantânea.
+npm run dev
 
 # Step 4: Inicie o servidor de desenvolvimento com auto-reload e pré-visualização instantânea.
 npm run dev

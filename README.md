@@ -36,6 +36,3 @@ npm i
 
 # Step 4: Inicie o servidor de desenvolvimento com auto-reload e pré-visualização instantânea.
 npm run dev
-
-# Step 4: Inicie o servidor de desenvolvimento com auto-reload e pré-visualização instantânea.
-npm run dev

@@ -27,11 +27,11 @@ O projeto é baseado nas seguintes tecnologias de ponta:
 Para trabalhar localmente usando seu IDE favorito, siga os passos abaixo:
 
 ```sh
-# Step 1: Clone o repositório.
-git clone https://github.com/MatheusBach-Dev/natasha-flows.git
-
 # Step 2: Navegue para o diretório do projeto.
 cd natasha-flows
+
+# Step 2: Clone o repositório.
+git clone https://github.com/MatheusBach-Dev/natasha-flows.git
 
 # Step 3: Instale as dependências necessárias.
 npm i

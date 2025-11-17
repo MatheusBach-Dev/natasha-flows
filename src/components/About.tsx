@@ -48,13 +48,13 @@ const About = ({ onNavigate }: AboutProps) => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
+          <div className="grid lg:grid-cols-2 md gap-10 items-center">
             <div className="space-y-8">
               <div className="relative">
                 <img
                   src={natashaPhoto}
                   alt="Natasha - Psicóloga e Terapeuta"
-                  className="w-64 h-64 rounded-3xl object-cover shadow-[var(--shadow-large)] mx-auto lg:mx-0 -mt-60" /* tamanho da imagem */
+                  className="w-64 h-64 rounded-3xl object-cover shadow-[var(--shadow-large)] mx-auto lg:mx-0 -mt-10 lg:-mt-60" /* tamanho da imagem */
                 />
               </div>
 

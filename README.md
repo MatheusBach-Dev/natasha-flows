@@ -39,3 +39,6 @@ npm i
 
 # Step 4: Inicie o servidor de desenvolvimento com auto-reload e pré-visualização instantânea.
 npm run dev
+
+
+Este repositório foi inicialmente criado pelo Lovable para estruturação de design, porém todo o código foi desenvolvido manualmente.

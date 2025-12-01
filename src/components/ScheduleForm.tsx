@@ -143,7 +143,7 @@ const ScheduleForm = ({ onSuccess }: ScheduleFormProps) => {
                             setFormData(prev => ({ ...prev, phone: value }));
                           }
                         }}
-                        placeholder="(31) 9154-8439"
+                        placeholder="(99) 9999-9999"
                         className="border-2 border-surface focus:border-primary rounded-xl"
                         maxLength={15}
                         required

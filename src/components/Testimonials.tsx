@@ -24,31 +24,31 @@ const Testimonials = () => {
     }
   ];
   
-  const [testimonials, setTestimonials] = useState(() => {
-    const saved = localStorage.getItem('testimonials');
-    return saved ? JSON.parse(saved) : comentariosIniciais;
-  });
-  
-  useEffect(() => {
-    localStorage.setItem('testimonials', JSON.stringify(testimonials));
-  }, [testimonials]);
+  /*   const [testimonials, setTestimonials] = useState(() => {
+      const saved = localStorage.getItem('testimonials');
+      return saved ? JSON.parse(saved) : comentariosIniciais;
+    }); */
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (nome && texto) {
-      const novoTestimonial = {
-        name: nome,
-        text: texto,
-        rating: rating
-      };
-      setTestimonials([...testimonials, novoTestimonial]);
-    }
-    console.log('Comentario enviado:', { nome, texto, rating });
-    setNome('');
-    setTexto('');
-    setRating(5);
-  };
+  /*  useEffect(() => {
+     localStorage.setItem('testimonials', JSON.stringify(testimonials));
+   }, [testimonials]);
+ 
+   const handleSubmit = (e) => {
+     e.preventDefault();
+ 
+     if (nome && texto) {
+       const novoTestimonial = {
+         name: nome,
+         text: texto,
+         rating: rating
+       };
+       setTestimonials([...testimonials, novoTestimonial]);
+     }
+     console.log('Comentario enviado:', { nome, texto, rating });
+     setNome('');
+     setTexto('');
+     setRating(5);
+   }; */
 
   return (
     <section className="py-20 bg-gradient-to-br from-surface/40 to-accent/10">
@@ -64,7 +64,7 @@ const Testimonials = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
+            {comentariosIniciais.map((testimonial, index) => (
               <div
                 key={index}
                 className="card-warm relative group hover:scale-105 transition-all duration-300"
@@ -91,7 +91,8 @@ const Testimonials = () => {
         </div>
       </div>
 
-      <div className='flex justify-center mt-20 px-4'>
+      {/* Formulário para adicionar comentários - código de treino comentado */}
+      {/* <div className='flex justify-center mt-20 px-4'>
         <form onSubmit={handleSubmit}>
           <h2 className="text-3xl md:text-4xl font-nunito font-bold text-warm mb-5">
             Adicione um comentário <span className="text-primary">LeveMente</span>
@@ -135,10 +136,13 @@ const Testimonials = () => {
             <button type="submit" className="btn-primary bg-[rgb(108,167,138)] text-white p-6 rounded-2x1 hover:bg-[rgb(98,157,128)] h-16">Enviar Comentário</button>
           </div>
         </form>
-      </div>
+      </div> */}
     </section>
-
   );
 };
 
 export default Testimonials;
+
+
+
+

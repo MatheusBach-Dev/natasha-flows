@@ -19,6 +19,7 @@ O projeto é baseado nas seguintes tecnologias de ponta:
 | **Build Tool** | **Vite** | Ferramenta de *build* e *dev server* de próxima geração, ultra-rápida. |
 | **Estilização** | **Tailwind CSS** | Framework CSS *utility-first* para desenvolvimento rápido e consistente. |
 | **Componentes** | **shadcn-ui** | Coleção de componentes re-utilizáveis e acessíveis, construídos sobre Tailwind. |
+| **Banco de dados** | **Firebase** | Captação e armazenamento eficiente de dados dos clientes. |
 
 ---
 

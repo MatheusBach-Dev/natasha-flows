@@ -15,12 +15,12 @@ const ThankYou = ({ onBack }: ThankYouProps) => {
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center">
           <div className="card-warm">
-            {/* Success Icon */}
+          
             <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8">
               <CheckCircle className="w-10 h-10 text-primary" />
             </div>
             
-            {/* Main Message */}
+           
             <h1 className="text-3xl md:text-4xl font-nunito font-bold text-warm mb-6">
               Solicitação enviada com sucesso!
             </h1>
@@ -30,7 +30,7 @@ const ThankYou = ({ onBack }: ThankYouProps) => {
               Retornarei o contato em até <strong>24 horas</strong> para agendar nossa primeira conversa.
             </p>
 
-            {/* Next Steps */}
+            
             <div className="bg-surface/40 rounded-2xl p-6 mb-8 text-left">
               <h3 className="font-nunito font-semibold text-warm mb-4 text-center">
                 Próximos passos:
@@ -47,7 +47,7 @@ const ThankYou = ({ onBack }: ThankYouProps) => {
                   <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                     <span className="text-primary text-sm font-bold">2</span>
                   </div>
-                  <p className="text-warm-secondary">Entrarei em contato pelo WhatsApp ou email em até 24h</p>
+                  <p className="text-warm-secondary">Entrarei em contato pelo WhatsApp em até 24h</p>
                 </div>
                 
                 <div className="flex items-start gap-3">
@@ -59,7 +59,7 @@ const ThankYou = ({ onBack }: ThankYouProps) => {
               </div>
             </div>
 
-            {/* Action Buttons */}
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
               <Button 
                 onClick={handleWhatsApp}
@@ -79,7 +79,7 @@ const ThankYou = ({ onBack }: ThankYouProps) => {
               </Button>
             </div>
 
-            {/* Additional Info */}
+            
             <div className="text-center text-warm-muted text-sm">
               <p className="mb-2">
                 <Calendar size={14} className="inline mr-1" />

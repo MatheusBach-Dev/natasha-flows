@@ -1,12 +1,11 @@
 import { collection, addDoc, serverTimestamp, doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { sendToZapier } from './zapierService';
 
 export interface ScheduleData {
   name: string;
   email: string;
   phone: string;
-  preferredMode: string;
-  preferredTimes: string[];
   message: string;
 }
 
@@ -39,12 +38,15 @@ export const saveScheduleRequest = async (data: ScheduleData) => {
     const scheduleRef = await addDoc(collection(userRef, 'sessao_agendada'), {
       name: data.name,
       phone: data.phone,
-      preferredMode: data.preferredMode,
-      preferredTimes: data.preferredTimes,
       message: data.message,
       createdAt: serverTimestamp(),
       status: 'pending'
     });
+    
+    // Enviar para Zapier (não bloqueia se falhar)
+    sendToZapier(data).catch(error => 
+      console.warn('Falha ao enviar para Zapier:', error)
+    );
     
     return scheduleRef.id;
   } catch (error) {

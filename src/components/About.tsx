@@ -1,5 +1,6 @@
 import { GraduationCap, Heart, Users, Clock } from 'lucide-react';
 import natashaPhoto from '@/assets/natasha.jpg';
+import natashaphoto2 from '@/assets/natashaphoto2.jpg';
 import therapyEnvironment from '@/assets/therapy-environment.jpg';
 import { Description } from '@radix-ui/react-toast';
 
@@ -52,7 +53,7 @@ const About = ({ onNavigate }: AboutProps) => {
             <div className="space-y-8">
               <div className="relative">
                 <img
-                  src={natashaPhoto}
+                  src={natashaphoto2}
                   alt="Natasha - Psicóloga e Terapeuta"
                   className="w-64 h-64 rounded-3xl object-cover shadow-[var(--shadow-large)] mx-auto lg:mx-0 -mt-10 lg:-mt-60" /* tamanho da imagem */
                 />

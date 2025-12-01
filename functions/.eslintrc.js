@@ -14,9 +14,9 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: ["tsconfig.json"],
-    sourceType: "module",
-  },
+  project: ['tsconfig.json'],
+  tsconfigRootDir: __dirname
+},
   ignorePatterns: [
     "/lib/**/*", // Ignore built files.
     "/generated/**/*", // Ignore generated files.

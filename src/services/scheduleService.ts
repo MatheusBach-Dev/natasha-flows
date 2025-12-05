@@ -1,6 +1,6 @@
 import { collection, addDoc, serverTimestamp, doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { sendToZapier } from './zapierService';
+import { sendWhatsAppNotification } from './whatsappService';
 
 export interface ScheduleData {
   name: string;
@@ -43,9 +43,14 @@ export const saveScheduleRequest = async (data: ScheduleData) => {
       status: 'pending'
     });
     
-    // Enviar para Zapier (não bloqueia se falhar)
-    sendToZapier(data).catch(error => 
-      console.warn('Falha ao enviar para Zapier:', error)
+    // Enviar para WhatsApp 
+    sendWhatsAppNotification({
+      nome: data.name,
+      email: data.email,
+      telefone: data.phone,
+      horario: new Date().toISOString()
+    }).catch(error => 
+      console.warn('Falha ao enviar WhatsApp:', error)
     );
     
     return scheduleRef.id;

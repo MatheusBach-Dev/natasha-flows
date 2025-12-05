@@ -55,6 +55,28 @@ const ScheduleForm = ({ onSuccess }: ScheduleFormProps) => {
     try {
       await saveScheduleRequest(formData);
       
+      // Enviar notificações (escolha 1 ou mais)
+      sendEmailNotification({
+        nome: formData.name,
+        email: formData.email,
+        telefone: formData.phone,
+        mensagem: formData.message
+      }).catch(console.warn);
+      
+      sendTelegramNotification({
+        nome: formData.name,
+        email: formData.email,
+        telefone: formData.phone,
+        mensagem: formData.message
+      }).catch(console.warn);
+      
+      sendPushNotification({
+        nome: formData.name,
+        email: formData.email,
+        telefone: formData.phone,
+        mensagem: formData.message
+      }).catch(console.warn);
+      
       toast({
         title: "Solicitação enviada!",
         description: "Retornarei o contato em até 24 horas. Obrigada!",

@@ -7,7 +7,7 @@ interface ThankYouProps {
 
 const ThankYou = ({ onBack }: ThankYouProps) => {
   const handleWhatsApp = () => {
-    window.open('https://wa.me/553191548439?text=Olá! Acabei de enviar uma solicitação pelo site.', '_blank');
+    window.open('https://wa.me/553191548439?text=Olá! Queria falar sobre a terapia.', '_blank');
   };
 
   return (

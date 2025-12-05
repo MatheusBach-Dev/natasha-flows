@@ -6,7 +6,7 @@ export const sendWhatsAppNotification = async (data: {
   mensagem?: string;
 }) => {
   try {
-    // Usa Netlify Function (sem CORS)
+    // Tenta Netlify Function primeiro
     const response = await fetch('https://delicate-sprinkles-1e170b.netlify.app/.netlify/functions/whatsapp', {
       method: 'POST',
       headers: {
@@ -26,11 +26,26 @@ export const sendWhatsAppNotification = async (data: {
       console.log('✅ WhatsApp enviado AUTOMATICAMENTE!', result);
       return result;
     } else {
-      console.error('❌ Erro Netlify Function:', result);
-      return null;
+      throw new Error('Netlify Function falhou');
     }
   } catch (error) {
-    console.error('❌ Erro ao enviar WhatsApp:', error);
-    return null;
+    console.warn('❌ Netlify falhou, usando fallback:', error);
+    
+    // FALLBACK: Abre WhatsApp Web
+    const mensagemFormatada = `🆕 NOVO AGENDAMENTO
+
+👤 Nome: ${data.nome}
+📧 Email: ${data.email}
+📱 Telefone: ${data.telefone}
+💬 Mensagem: ${data.mensagem || 'Nenhuma'}
+⏰ Horário: ${data.horario}
+
+Método LeveMente`;
+    
+    const whatsappUrl = `https://wa.me/553191548439?text=${encodeURIComponent(mensagemFormatada)}`;
+    window.open(whatsappUrl, '_blank');
+    
+    console.log('✅ WhatsApp aberto como fallback!');
+    return { success: true, method: 'fallback' };
   }
 };

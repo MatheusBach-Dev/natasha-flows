@@ -1,14 +1,28 @@
 exports.handler = async (event, context) => {
-  // CORS headers
+  // CORS headers mais completos
   const headers = {
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Max-Age': '86400'
   };
 
-  // Handle preflight
+  // Handle preflight OPTIONS
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ message: 'CORS preflight' })
+    };
+  }
+
+  // Handle GET para teste
+  if (event.httpMethod === 'GET') {
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ message: 'WhatsApp Function ativa!' })
+    };
   }
 
   try {

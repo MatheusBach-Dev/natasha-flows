@@ -25,20 +25,45 @@ O projeto é baseado nas seguintes tecnologias de ponta:
 
 ## 🚀 Começando o Desenvolvimento Local
 
-Para trabalhar localmente usando seu IDE favorito, siga os passos abaixo:
+O projeto está dividido em **frontend** e **backend**. Siga os passos abaixo:
+
+### 1️⃣ Clone o repositório
 
 ```sh
-# Step 2: Navegue para o diretório do projeto.
-cd natasha-flows
-
-# Step 2: Clone o repositório.
 git clone https://github.com/MatheusBach-Dev/natasha-flows.git
+cd natasha-flows
+```
 
-# Step 3: Instale as dependências necessárias.
-npm i
+### 2️⃣ Configurar e rodar o Backend
 
-# Step 4: Inicie o servidor de desenvolvimento com auto-reload e pré-visualização instantânea.
+```sh
+# Navegue para o diretório do backend
+cd backend
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor backend (porta 3001)
 npm run dev
+```
 
+### 3️⃣ Configurar e rodar o Frontend
+
+Em um novo terminal:
+
+```sh
+# Navegue para o diretório do frontend
+cd frontend
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
+npm run dev
+```
+
+O frontend estará disponível em `http://localhost:5173` e o backend em `http://localhost:3001`.
+
+---
 
 Este repositório foi inicialmente criado pelo Lovable para estruturação de design, porém todo o código foi desenvolvido manualmente.

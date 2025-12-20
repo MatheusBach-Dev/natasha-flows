@@ -22,11 +22,7 @@ const ScheduleForm = ({ onSuccess }: ScheduleFormProps) => {
     message: ''
   });
 
-  const timeSlots = [
-    'Manhã (8h-12h)',
-    'Tarde (13h-17h)', 
-    'Noite (18h-21h)'
-  ];
+ 
 
   const handleTimeSlotChange = (timeSlot: string) => {
     setFormData(prev => ({
@@ -54,28 +50,6 @@ const ScheduleForm = ({ onSuccess }: ScheduleFormProps) => {
 
     try {
       await saveScheduleRequest(formData);
-      
-      // Enviar notificações (escolha 1 ou mais)
-      sendEmailNotification({
-        nome: formData.name,
-        email: formData.email,
-        telefone: formData.phone,
-        mensagem: formData.message
-      }).catch(console.warn);
-      
-      sendTelegramNotification({
-        nome: formData.name,
-        email: formData.email,
-        telefone: formData.phone,
-        mensagem: formData.message
-      }).catch(console.warn);
-      
-      sendPushNotification({
-        nome: formData.name,
-        email: formData.email,
-        telefone: formData.phone,
-        mensagem: formData.message
-      }).catch(console.warn);
       
       toast({
         title: "Solicitação enviada!",
@@ -122,12 +96,12 @@ const ScheduleForm = ({ onSuccess }: ScheduleFormProps) => {
                   
                   <div>
                     <label className="block text-warm-secondary mb-2 font-medium">
-                      Nome completo *
+                      Nome completo 
                     </label>
                     <Input
                       value={formData.name}
                       onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                      placeholder="Seu nome completo"
+                      placeholder="Nome completo"
                       className="border-2 border-surface focus:border-primary rounded-xl"
                       required
                     />
@@ -136,13 +110,13 @@ const ScheduleForm = ({ onSuccess }: ScheduleFormProps) => {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-warm-secondary mb-2 font-medium">
-                        E-mail *
+                        E-mail 
                       </label>
                       <Input
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                        placeholder="seu@email.com"
+                        placeholder="exemplo@email.com"
                         className="border-2 border-surface focus:border-primary rounded-xl"
                         required
                       />
@@ -150,7 +124,7 @@ const ScheduleForm = ({ onSuccess }: ScheduleFormProps) => {
                     
                     <div>
                       <label className="block text-warm-secondary mb-2 font-medium">
-                        WhatsApp *
+                        WhatsApp 
                       </label>
                       <Input
                         type="tel"
@@ -202,7 +176,7 @@ const ScheduleForm = ({ onSuccess }: ScheduleFormProps) => {
                   ) : (
                     <>
                       <MessageCircle size={20} />
-                      Enviar solicitação
+                      Enviar 
                     </>
                   )}
                 </Button>

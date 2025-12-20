@@ -1,6 +1,23 @@
 import { collection, addDoc, serverTimestamp, doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { sendWhatsAppNotification } from './whatsappService';
+
+export async function enviarEmail(dados: any) {
+  const API_URL = import.meta.env.VITE_API_URL || "http://192.168.0.197:3000";
+  const response = await fetch(`${API_URL}/enviar-email`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dados),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao enviar email");
+  }
+
+  return response.json();
+}
+
 
 export interface ScheduleData {
   name: string;
@@ -32,6 +49,13 @@ const createOrGetUser = async (email: string, name: string, phone?: string) => {
 };
 
 export const saveScheduleRequest = async (data: ScheduleData) => {
+  await enviarEmail({
+    nome: data.name,
+    telefone: data.phone,
+    email: data.email,
+    mensagem: data.message
+  });
+  
   try {
     const userRef = await createOrGetUser(data.email, data.name, data.phone);
     
@@ -42,21 +66,9 @@ export const saveScheduleRequest = async (data: ScheduleData) => {
       createdAt: serverTimestamp(),
       status: 'pending'
     });
-    
-    // Enviar para WhatsApp 
-    sendWhatsAppNotification({
-      nome: data.name,
-      email: data.email,
-      telefone: data.phone,
-      horario: new Date().toISOString()
-    }).catch(error => 
-      console.warn('Falha ao enviar WhatsApp:', error)
-    );
-    
     return scheduleRef.id;
-  } catch (error) {
-    console.error('Erro ao salvar agendamento:', error);
-    throw error;
+  } catch (firebaseError) {
+    return 'email-sent-firebase-offline';
   }
 };
 
@@ -73,7 +85,6 @@ export const saveTestResult = async (email: string, name: string, testData: Test
     
     return testRef.id;
   } catch (error) {
-    console.error('Erro ao salvar resultado do teste:', error);
     throw error;
   }
 };

@@ -2,8 +2,7 @@ import { collection, addDoc, serverTimestamp, doc, setDoc, getDoc } from 'fireba
 import { db } from '@/lib/firebase';
 
 export async function enviarEmail(dados: any) {
-  const API_URL = import.meta.env.VITE_API_URL || "http://192.168.0.197:3000";
-  const response = await fetch(`${API_URL}/enviar-email`, {
+  const response = await fetch("/api/enviar-email", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

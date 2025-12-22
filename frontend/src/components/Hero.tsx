@@ -7,7 +7,7 @@ interface HeroProps {
 
 const Hero = ({ onNavigate }: HeroProps) => {
   const handleWhatsApp = () => { // texto automatico de entrar em contato 
-    window.open('https://wa.me/553191548439?text=Olá! Gostaria de saber mais sobre a terapia.', '_blank');
+    window.open('https://wa.me/553191548439?text=Olá! Gostaria de saber mais sobre o método LeveMente.', '_blank');
   };
 
   return (

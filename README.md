@@ -62,7 +62,7 @@ npm install
 npm run dev
 ```
 
-O frontend estará disponível em `http://localhost:5173` e o backend em `http://localhost:3001`.
+O frontend estará disponível em `http://localhost:5174` e o backend em `http://localhost:3001`.
 
 ---
 

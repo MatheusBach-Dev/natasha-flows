@@ -231,7 +231,7 @@ const ScheduleForm = ({ onSuccess }: ScheduleFormProps) => {
                   Você também pode entrar em contato diretamente pelo WhatsApp para tirar dúvidas ou agendar.
                 </p>
                 <Button 
-                  onClick={() => window.open('https://wa.me/553191548439?text=Olá! Gostaria de agendar uma sessão de terapia.', '_blank')}
+                  onClick={() => window.open('https://wa.me/553191548439?text=Olá! Gostaria de saber mais sobre o método LeveMente.', '_blank')}
                   className="btn-accent w-full"
                 >
                   Chamar no WhatsApp

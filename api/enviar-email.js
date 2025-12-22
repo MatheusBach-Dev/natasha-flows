@@ -1,7 +1,10 @@
 const nodemailer = require('nodemailer');
 
 module.exports = async function handler(req, res) {
-  // Adicionar CORS
+  // Log para debug
+  console.log('API chamada:', req.method, req.body);
+  
+  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -14,38 +17,73 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ erro: 'Método não permitido' });
   }
 
-  const { nome, telefone, email, mensagem } = req.body;
-
-  // Verificar se as variáveis de ambiente existem
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    return res.status(500).json({ 
-      erro: 'Variáveis de ambiente não configuradas',
-      detalhes: 'EMAIL_USER ou EMAIL_PASS não definidas'
-    });
-  }
-
   try {
+    const { nome, telefone, email, mensagem } = req.body;
+    
+    // Validar dados recebidos
+    if (!nome || !email) {
+      return res.status(400).json({ 
+        erro: 'Dados obrigatórios não fornecidos',
+        detalhes: 'Nome e email são obrigatórios'
+      });
+    }
+
+    // Verificar variáveis de ambiente
+    console.log('Verificando env vars:', {
+      EMAIL_USER: process.env.EMAIL_USER ? 'OK' : 'MISSING',
+      EMAIL_PASS: process.env.EMAIL_PASS ? 'OK' : 'MISSING'
+    });
+    
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      return res.status(500).json({ 
+        erro: 'Configuração do servidor incompleta',
+        detalhes: 'Variáveis de ambiente não configuradas'
+      });
+    }
+
+    // Criar transporter
     const transporter = nodemailer.createTransporter({
-      service: "gmail",
+      service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
       }
     });
 
-    await transporter.sendMail({
+    // Verificar conexão
+    await transporter.verify();
+    console.log('Conexão SMTP verificada com sucesso');
+
+    // Enviar email
+    const info = await transporter.sendMail({
       from: `"Site Método LeveMente" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
       subject: `Método LeveMente - Nova Sessão Agendada: ${nome}`,
-      text: `Nome: ${nome}\nTelefone: ${telefone}\nEmail: ${email}\nMensagem: ${mensagem}`
+      html: `
+        <h3>Nova Sessão Agendada</h3>
+        <p><strong>Nome:</strong> ${nome}</p>
+        <p><strong>Telefone:</strong> ${telefone || 'Não informado'}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Mensagem:</strong> ${mensagem || 'Nenhuma mensagem'}</p>
+      `,
+      text: `Nome: ${nome}\nTelefone: ${telefone || 'Não informado'}\nEmail: ${email}\nMensagem: ${mensagem || 'Nenhuma mensagem'}`
     });
 
-    res.json({ sucesso: true });
-  } catch (err) {
-    console.error('Erro no envio de email:', err);
+    console.log('Email enviado:', info.messageId);
+    res.json({ sucesso: true, messageId: info.messageId });
+    
+  } catch (error) {
+    console.error('Erro detalhado:', {
+      message: error.message,
+      code: error.code,
+      command: error.command,
+      stack: error.stack
+    });
+    
     res.status(500).json({ 
-      erro: "Erro ao enviar email", 
-      detalhes: err.message 
+      erro: 'Erro interno do servidor',
+      detalhes: error.message,
+      codigo: error.code || 'UNKNOWN'
     });
   }
-};
+};;

@@ -1,10 +1,9 @@
 const nodemailer = require('nodemailer');
 
 module.exports = async function handler(req, res) {
-  // Log para debug
+
   console.log('API chamada:', req.method, req.body);
   
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -20,7 +19,6 @@ module.exports = async function handler(req, res) {
   try {
     const { nome, telefone, email, mensagem } = req.body;
     
-    // Validar dados recebidos
     if (!nome || !email) {
       return res.status(400).json({ 
         erro: 'Dados obrigatórios não fornecidos',
@@ -28,7 +26,6 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // Verificar variáveis de ambiente
     console.log('Verificando env vars:', {
       EMAIL_USER: process.env.EMAIL_USER ? 'OK' : 'MISSING',
       EMAIL_PASS: process.env.EMAIL_PASS ? 'OK' : 'MISSING'
@@ -41,7 +38,6 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // Criar transporter - CORREÇÃO AQUI!
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -50,11 +46,9 @@ module.exports = async function handler(req, res) {
       }
     });
 
-    // Verificar conexão
     await transporter.verify();
     console.log('Conexão SMTP verificada com sucesso');
-
-    // Enviar email
+    
     const info = await transporter.sendMail({
       from: `"Site Método LeveMente" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,

@@ -48,17 +48,17 @@ module.exports = async function handler(req, res) {
 
     await transporter.verify();
     console.log('Conexão SMTP verificada com sucesso');
-    
+
     const info = await transporter.sendMail({
-      from: `"Site Método LeveMente" <${process.env.EMAIL_USER}>`,
+      from: `"Site: Método LeveMente" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
-      subject: `Método LeveMente - Nova Sessão Agendada: ${nome}`,
+      subject: `Método LeveMente - Nova Sessão Agendada`,
       html: `
-        <h3>Nova Sessão Agendada</h3>
         <p><strong>Nome:</strong> ${nome}</p>
         <p><strong>Telefone:</strong> ${telefone || 'Não informado'}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Mensagem:</strong> ${mensagem || 'Nenhuma mensagem'}</p>
+        <p><strong>Mensagem:</strong> ${mensagem || 'Nenhuma mensagem'}</p><BR>
+        <h3>Método LeveMente</h3>
       `,
       text: `Nome: ${nome}\nTelefone: ${telefone || 'Não informado'}\nEmail: ${email}\nMensagem: ${mensagem || 'Nenhuma mensagem'}`
     });

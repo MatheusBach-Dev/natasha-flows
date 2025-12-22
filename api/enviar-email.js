@@ -1,11 +1,28 @@
-import nodemailer from "nodemailer";
+const nodemailer = require('nodemailer');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
+  // Adicionar CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  
   if (req.method !== 'POST') {
     return res.status(405).json({ erro: 'Método não permitido' });
   }
 
   const { nome, telefone, email, mensagem } = req.body;
+
+  // Verificar se as variáveis de ambiente existem
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    return res.status(500).json({ 
+      erro: 'Variáveis de ambiente não configuradas',
+      detalhes: 'EMAIL_USER ou EMAIL_PASS não definidas'
+    });
+  }
 
   try {
     const transporter = nodemailer.createTransporter({
@@ -25,6 +42,10 @@ export default async function handler(req, res) {
 
     res.json({ sucesso: true });
   } catch (err) {
-    res.status(500).json({ erro: "Erro ao enviar email", detalhes: err.message });
+    console.error('Erro no envio de email:', err);
+    res.status(500).json({ 
+      erro: "Erro ao enviar email", 
+      detalhes: err.message 
+    });
   }
-}
+};

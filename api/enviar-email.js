@@ -41,8 +41,8 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // Criar transporter
-    const transporter = nodemailer.createTransporter({
+    // Criar transporter - CORREÇÃO AQUI!
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
@@ -86,4 +86,4 @@ module.exports = async function handler(req, res) {
       codigo: error.code || 'UNKNOWN'
     });
   }
-};;
+};;;

@@ -50,7 +50,7 @@ module.exports = async function handler(req, res) {
     console.log('Conexão SMTP verificada com sucesso');
 
     const info = await transporter.sendMail({
-      from: `"Site: Método LeveMente" <${process.env.EMAIL_USER}>`,
+      from: `"Método LeveMente" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
       subject: `Método LeveMente - Nova Sessão Agendada`,
       html: `

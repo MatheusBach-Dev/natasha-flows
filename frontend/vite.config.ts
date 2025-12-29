@@ -9,7 +9,13 @@ export default defineConfig(({ mode }) => ({
     port: 5174, // porta do frontend
     allowedHosts: [
       'mesarch-selma-nonmetaphysical.ngrok-free.dev'
-    ]
+    ],
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
+      }
+    }
   },
   plugins: [
     react(),

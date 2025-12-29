@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/enviar-email", async (req, res) => {
+app.post("/api/enviar-email", async (req, res) => {
   const { nome, telefone, email, mensagem } = req.body;
 
   try {
@@ -34,6 +34,6 @@ app.post("/enviar-email", async (req, res) => {
   }
 });
 
-app.listen(3000, '0.0.0.0', () => {
-  // backend ligado na porta 3000
+app.listen(3001, '0.0.0.0', () => {
+  console.log('Backend rodando na porta 3001');
 });

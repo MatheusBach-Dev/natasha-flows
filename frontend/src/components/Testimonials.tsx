@@ -101,7 +101,7 @@ const Testimonials = () => {
       </div>
 
       {/* Formulário para adicionar comentários */}
-      <div className='flex justify-center mt-20 px-4'>
+      {/* <div className='flex justify-center mt-20 px-4'>
         <form onSubmit={handleSubmit}>
           <h2 className="text-3xl md:text-4xl font-nunito font-bold text-warm mb-5">
             Adicione um comentário <span className="text-primary">LeveMente</span>
@@ -165,7 +165,7 @@ const Testimonials = () => {
             </button>
           </div>
         </form>
-      </div> 
+      </div>  */}
     </section>
   );
 };

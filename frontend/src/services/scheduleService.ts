@@ -54,9 +54,10 @@ export const saveScheduleRequest = async (data: ScheduleData) => {
     email: data.email,
     mensagem: data.message
   });
+  
   try {
     const userRef = await createOrGetUser(data.email, data.name, data.phone);
-
+    
     const scheduleRef = await addDoc(collection(userRef, 'sessao_agendada'), {
       name: data.name,
       phone: data.phone,
@@ -66,22 +67,21 @@ export const saveScheduleRequest = async (data: ScheduleData) => {
     });
     return scheduleRef.id;
   } catch (firebaseError) {
-    console.error('Erro ao salvar no Firebase:', firebaseError);
-    throw firebaseError;
+    return 'email-sent-firebase-offline';
   }
 };
 
 export const saveTestResult = async (email: string, name: string, testData: TestData) => {
   try {
     const userRef = await createOrGetUser(email, name);
-
+    
     const testRef = await addDoc(collection(userRef, 'teste'), {
       answers: testData.answers,
       score: testData.score,
       result: testData.result,
       createdAt: serverTimestamp()
     });
-
+    
     return testRef.id;
   } catch (error) {
     throw error;

@@ -48,13 +48,6 @@ const createOrGetUser = async (email: string, name: string, phone?: string) => {
 };
 
 export const saveScheduleRequest = async (data: ScheduleData) => {
-  await enviarEmail({
-    nome: data.name,
-    telefone: data.phone,
-    email: data.email,
-    mensagem: data.message
-  });
-  
   try {
     const userRef = await createOrGetUser(data.email, data.name, data.phone);
     
@@ -65,9 +58,18 @@ export const saveScheduleRequest = async (data: ScheduleData) => {
       createdAt: serverTimestamp(),
       status: 'pending'
     });
+    
+    await enviarEmail({
+      nome: data.name,
+      telefone: data.phone,
+      email: data.email,
+      mensagem: data.message
+    });
+    
     return scheduleRef.id;
-  } catch (firebaseError) {
-    return 'email-sent-firebase-offline';
+  } catch (error) {
+    console.error('Erro:', error);
+    throw error;
   }
 };
 

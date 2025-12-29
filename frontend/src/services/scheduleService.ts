@@ -1,5 +1,14 @@
-import { collection, addDoc, serverTimestamp, doc, setDoc, getDoc } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  doc,
+  setDoc,
+  getDoc
+} from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { db } from "@/lib/firebase";
+
 
 export async function enviarEmail(dados: any) {
   const response = await fetch("/api/enviar-email", {
@@ -31,15 +40,26 @@ export interface TestData {
   result: string;
 }
 
-const createOrGetUser = async (email: string, name: string, phone?: string) => {
-  const userRef = doc(db, 'users', email);
+const auth = getAuth();
+
+export const createOrGetUser = async (
+  name: string,
+  phone?: string
+) => {
+  const user = auth.currentUser;
+
+  if (!user) {
+    throw new Error("Usuário não autenticado");
+  }
+
+  const userRef = doc(db, "users", user.uid);
   const userDoc = await getDoc(userRef);
 
   if (!userDoc.exists()) {
     await setDoc(userRef, {
       name,
-      email,
-      phone: phone || '',
+      email: user.email,
+      phone: phone || "",
       createdAt: serverTimestamp()
     });
   }
@@ -49,41 +69,51 @@ const createOrGetUser = async (email: string, name: string, phone?: string) => {
 
 export const saveScheduleRequest = async (data: ScheduleData) => {
   try {
-    const userRef = await createOrGetUser(data.email, data.name, data.phone);
-    
-    const scheduleRef = await addDoc(collection(userRef, 'sessao_agendada'), {
-      name: data.name,
-      phone: data.phone,
-      message: data.message,
-      createdAt: serverTimestamp(),
-      status: 'pending'
-    });
-    
+    const userRef = await createOrGetUser(data.name, data.phone);
+
+    const scheduleRef = await addDoc(
+      collection(userRef, "sessao_agendada"),
+      {
+        name: data.name,
+        phone: data.phone,
+        message: data.message,
+        createdAt: serverTimestamp(),
+        status: "pending"
+      }
+    );
+
     await enviarEmail({
       nome: data.name,
       telefone: data.phone,
       email: data.email,
       mensagem: data.message
     });
-    
+
     return scheduleRef.id;
   } catch (error) {
-    console.error('Erro:', error);
+    console.error("Erro:", error);
     throw error;
   }
 };
 
-export const saveTestResult = async (email: string, name: string, testData: TestData) => {
+
+export const saveTestResult = async (testData: TestData) => {
   try {
-    const userRef = await createOrGetUser(email, name);
-    
-    const testRef = await addDoc(collection(userRef, 'teste'), {
+    const user = auth.currentUser;
+
+    if (!user) {
+      throw new Error("Usuário não autenticado");
+    }
+
+    const userRef = doc(db, "users", user.uid);
+
+    const testRef = await addDoc(collection(userRef, "teste"), {
       answers: testData.answers,
       score: testData.score,
       result: testData.result,
       createdAt: serverTimestamp()
     });
-    
+
     return testRef.id;
   } catch (error) {
     throw error;

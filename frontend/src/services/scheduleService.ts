@@ -39,6 +39,12 @@ export interface TestData {
   result: string;
 }
 
+export interface TestimonialData {
+  name: string;
+  text: string;
+  rating: number;
+}
+
 
 
 const createOrGetUser = async (email: string, name: string, phone?: string) => {
@@ -100,6 +106,23 @@ export const saveTestResult = async (email: string, name: string, testData: Test
 
     return testRef.id;
   } catch (error) {
+    throw error;
+  }
+};
+
+export const saveTestimonial = async (testimonialData: TestimonialData) => {
+  try {
+    const testimonialRef = await addDoc(collection(db, "testimonials"), {
+      name: testimonialData.name,
+      text: testimonialData.text,
+      rating: testimonialData.rating,
+      createdAt: serverTimestamp(),
+      approved: false 
+    });
+
+    return testimonialRef.id;
+  } catch (error) {
+    console.error('Erro ao salvar testimonial:', error);
     throw error;
   }
 };

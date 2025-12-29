@@ -1,10 +1,13 @@
 import { Star, Quote } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { saveTestimonial, TestimonialData } from '@/services/scheduleService';
 
 const Testimonials = () => {
   const [nome, setNome] = useState('');
   const [texto, setTexto] = useState('');
   const [rating, setRating] = useState(5);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
   
   const comentariosIniciais = [
     {
@@ -24,31 +27,37 @@ const Testimonials = () => {
     }
   ];
   
-  /*   const [testimonials, setTestimonials] = useState(() => {
-      const saved = localStorage.getItem('testimonials');
-      return saved ? JSON.parse(saved) : comentariosIniciais;
-    }); */
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!nome || !texto) {
+      setSubmitMessage('Por favor, preencha nome e comentário.');
+      return;
+    }
 
-  /*  useEffect(() => {
-     localStorage.setItem('testimonials', JSON.stringify(testimonials));
-   }, [testimonials]);
- 
-   const handleSubmit = (e) => {
-     e.preventDefault();
- 
-     if (nome && texto) {
-       const novoTestimonial = {
-         name: nome,
-         text: texto,
-         rating: rating
-       };
-       setTestimonials([...testimonials, novoTestimonial]);
-     }
-     console.log('Comentario enviado:', { nome, texto, rating });
-     setNome('');
-     setTexto('');
-     setRating(5);
-   }; */
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    try {
+      const testimonialData: TestimonialData = {
+        name: nome,
+        text: texto,
+        rating: rating
+      };
+
+      await saveTestimonial(testimonialData);
+      
+      setSubmitMessage('✅ Comentário enviado com sucesso! Será analisado antes da publicação.');
+      setNome('');
+      setTexto('');
+      setRating(5);
+    } catch (error) {
+      console.error('Erro ao enviar comentário:', error);
+      setSubmitMessage('❌ Erro ao enviar comentário. Tente novamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="py-20 bg-gradient-to-br from-surface/40 to-accent/10">
@@ -91,22 +100,30 @@ const Testimonials = () => {
         </div>
       </div>
 
-      {/* {/* Formulário para adicionar comentários - código de treino comentado */}
-      {/* <div className='flex justify-center mt-20 px-4'>
+      {/* Formulário para adicionar comentários */}
+      <div className='flex justify-center mt-20 px-4'>
         <form onSubmit={handleSubmit}>
           <h2 className="text-3xl md:text-4xl font-nunito font-bold text-warm mb-5">
             Adicione um comentário <span className="text-primary">LeveMente</span>
           </h2>
+
+          {submitMessage && (
+            <div className={`mb-4 p-3 rounded ${submitMessage.includes('✅') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+              {submitMessage}
+            </div>
+          )}
 
           <div className="relative">
             <p className="absolute top-[-8px] left-4 md:left-[120px] mt-1">Nome</p>
           </div>
 
           <div className=" flex justify-center">
-            <input className="mx-auto card-warm p-5 w-full md:w-96 mb-4 text-warm placeholder-warm-secondary/60 h-16 mt-9"
+            <input 
+              className="mx-auto card-warm p-5 w-full md:w-96 mb-4 text-warm placeholder-warm-secondary/60 h-16 mt-9"
               placeholder="Digite o seu nome"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -115,10 +132,12 @@ const Testimonials = () => {
           </div>
 
           <div className="flex justify-center">
-            <textarea className="flex justify-center card-warm p-5 w-full md:w-96 mb-4 text-warm placeholder-warm-secondary/60 h-16 mt-10"
+            <textarea 
+              className="flex justify-center card-warm p-5 w-full md:w-96 mb-4 text-warm placeholder-warm-secondary/60 h-16 mt-10"
               placeholder="Adicione um comentário"
               value={texto}
               onChange={(e) => setTexto(e.target.value)}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -126,17 +145,27 @@ const Testimonials = () => {
             {[1, 2, 3, 4, 5].map((star) => (
               <Star
                 key={star}
-                className={`w-8 h-6 cursor-pointer ${star <= rating ? 'fill-accent text-accent' : 'text-gray-300'} mb-6`}
-                onClick={() => setRating(star)}
+                className={`w-8 h-6 cursor-pointer ${star <= rating ? 'fill-accent text-accent' : 'text-gray-300'} mb-6 ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                onClick={() => !isSubmitting && setRating(star)}
               />
             ))}
           </div>
 
           <div className="flex justify-center">
-            <button type="submit" className="btn-primary bg-[rgb(108,167,138)] text-white p-6 rounded-2x1 hover:bg-[rgb(98,157,128)] h-16">Enviar Comentário</button>
+            <button 
+              type="submit" 
+              disabled={isSubmitting}
+              className={`btn-primary bg-[rgb(108,167,138)] text-white p-6 rounded-2xl h-16 ${
+                isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[rgb(98,157,128)]'
+              }`}
+            >
+              {isSubmitting ? 'Enviando...' : 'Enviar Comentário'}
+            </button>
           </div>
         </form>
-      </div> */} 
+      </div> 
     </section>
   );
 };

@@ -6,7 +6,6 @@ import {
   setDoc,
   getDoc
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 import { db } from "@/lib/firebase";
 
 
@@ -40,26 +39,17 @@ export interface TestData {
   result: string;
 }
 
-const auth = getAuth();
 
-export const createOrGetUser = async (
-  name: string,
-  phone?: string
-) => {
-  const user = auth.currentUser;
 
-  if (!user) {
-    throw new Error("Usuário não autenticado");
-  }
-
-  const userRef = doc(db, "users", user.uid);
+const createOrGetUser = async (email: string, name: string, phone?: string) => {
+  const userRef = doc(db, 'users', email);
   const userDoc = await getDoc(userRef);
 
   if (!userDoc.exists()) {
     await setDoc(userRef, {
       name,
-      email: user.email,
-      phone: phone || "",
+      email,
+      phone: phone || '',
       createdAt: serverTimestamp()
     });
   }
@@ -69,7 +59,7 @@ export const createOrGetUser = async (
 
 export const saveScheduleRequest = async (data: ScheduleData) => {
   try {
-    const userRef = await createOrGetUser(data.name, data.phone);
+    const userRef = await createOrGetUser(data.email, data.name, data.phone);
 
     const scheduleRef = await addDoc(
       collection(userRef, "sessao_agendada"),
@@ -97,15 +87,9 @@ export const saveScheduleRequest = async (data: ScheduleData) => {
 };
 
 
-export const saveTestResult = async (testData: TestData) => {
+export const saveTestResult = async (email: string, name: string, testData: TestData) => {
   try {
-    const user = auth.currentUser;
-
-    if (!user) {
-      throw new Error("Usuário não autenticado");
-    }
-
-    const userRef = doc(db, "users", user.uid);
+    const userRef = await createOrGetUser(email, name);
 
     const testRef = await addDoc(collection(userRef, "teste"), {
       answers: testData.answers,
